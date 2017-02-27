@@ -1,0 +1,34 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#template-container ul ul { display: none; }
+
+#template-container ul
+{
+margin: 0; /*adjusting this will stagger up/down*/
+padding: 0;
+list-style-type: none;
+text-align: left;
+}
+
+#template-container li {float: left;}
+#template-container li ul {float: right;}
+
+#template-container li a
+{
+text-decoration: none;
+padding: .2em 1em;
+color: #fff;
+background-color: #b3b3b3;
+}
+
+#template-container li a.toggle.active {
+	background-color: #cccccc;
+}
+
+.level {
+	padding: .2em 0;
+}
+
+.clearFloat { clear: both; float: left; display: block; position: relative; } 
