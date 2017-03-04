@@ -9,10 +9,10 @@ function genReport() {
 		report += $(this).attr("id") + ": ";
 
 		if(checkActive(getNode("FA", this))){
-			findings.push(sevWrap("facet arthrosis", "FA", this))
+			findings.push(sevWrap("FA", this))
 		}
 		if(checkActive(getNode("LFH", this))){
-			findings.push(sevWrap("ligamentum flavum hypertrophy", "LFH", this))
+			findings.push(sevWrap("LFH", this))
 		}
 		if(checkActive(getNode("Disk", this))){
 			findings.push("disk buldge")
@@ -32,14 +32,16 @@ function checkActive(node) {
 	return node.attr("class").search("active")>=0
 }
 
-function sevWrap(string, st, node) {
+function sevWrap(st, node) {
 	var left 
 	var right
 	var sevs = []
 
+	// Loop over severity levels
 	var sevNodes = getNode(st, node).siblings(".sev").children().children("a")
 	sevNodes.each(function() {
 		if(checkActive($(this))) {
+			// Extract laterality data
 			var lat
 			var lats = $(this).siblings(".lat").find("a.active")
 			if(lats.length == 0 || lats == undefined) {
@@ -53,15 +55,15 @@ function sevWrap(string, st, node) {
 		}
 	})
 
+	// Wrap findings in severity and laterality info
 	var tmp = ''
 	for(var i = 0; i < sevs.length; i++) {
 		if(i>0) {tmp += " and "}
 		tmp += sevs[i].severity + sevs[i].laterality
 		if(i==sevs.length-1) {tmp += " "}
 	}
-	string = tmp + string
-
-	return string
+	
+	return tmp + getNode(st, node).attr("data-title")
 }
 ////////////////////////////////////////////////////////////////////////////////
 
