@@ -8,14 +8,14 @@ function genReport() {
 
 		report += $(this).attr("id") + ": ";
 
-		if(checkActive("FA", this)){
-			findings.push(sevWrap("Facet arthrosis", "FA", this))
+		if(checkActive(getNode("FA", this))){
+			findings.push(sevWrap("facet arthrosis", "FA", this))
 		}
-		if(checkActive("LFH", this)){
-			findings.push("Ligamentum flavum hypertrophy")
+		if(checkActive(getNode("LFH", this))){
+			findings.push(sevWrap("ligamentum flavum hypertrophy", "LFH", this))
 		}
-		if(checkActive("Disk", this)){
-			findings.push("Disk buldge")
+		if(checkActive(getNode("Disk", this))){
+			findings.push("disk buldge")
 		}
 		report += findings.join(", ")
 		report += "\n\n"
@@ -24,24 +24,42 @@ function genReport() {
 	$("#output").val(report)
 }
 
-function checkActive(st, node) {
-	return $("a:contains(%s)".replace(/%s/g, st), node).attr("class").search("active")>=0
+function getNode(st, node) {
+	return $("a:contains(%s)".replace(/%s/g, st), node)
+}
+
+function checkActive(node) {
+	return node.attr("class").search("active")>=0
 }
 
 function sevWrap(string, st, node) {
 	var left 
 	var right
+	var sevs = []
 
-	left = $("a:contains(%s)".replace(/%s/g, st), node).siblings().find("a:contains(L)").attr("class").search("active")>=0
-	right = $("a:contains(%s)".replace(/%s/g, st), node).siblings().find("a:contains(R)").attr("class").search("active")>=0
-	
-	if(left && right) {
-		string = "bilateral" + string
-	} else if (left) {
-		string = "left" + string
-	} else if (right) {
-		string = "right" + string
+	var sevNodes = getNode(st, node).siblings(".sev").children().children("a")
+	sevNodes.each(function() {
+		if(checkActive($(this))) {
+			var lat
+			var lats = $(this).siblings(".lat").find("a.active")
+			if(lats.length == 0 || lats == undefined) {
+				lat = ""
+			} else if(lats.length > 1) {
+				lat = " bilateral"
+			} else {
+				lat = " " + lats.attr("data-title")
+			}
+			sevs.push({severity: $(this).attr("data-title"), laterality: lat})
+		}
+	})
+
+	var tmp = ''
+	for(var i = 0; i < sevs.length; i++) {
+		if(i>0) {tmp += " and "}
+		tmp += sevs[i].severity + sevs[i].laterality
+		if(i==sevs.length-1) {tmp += " "}
 	}
+	string = tmp + string
 
 	return string
 }
@@ -59,8 +77,8 @@ $(document).ready(function(){
 	}
 
 	// Attach submenus for severity and left/right
-	$(".sev").parent().append($("<ul>", {class: "drop_menu"}).html("<li><a class=\"toggle lat\" href=\"#\">Mild</a></li><li><a class=\"toggle lat\" href=\"#\">Mod</a></li><li><a class=\"toggle lat\" href=\"#\">Sev</a></li>"));
-	$(".lat").parent().append($("<ul>", {class: "drop_menu"}).html("<li><a class=\"toggle\" href=\"#\">L</a></li><li><a class=\"toggle\" href=\"#\">R</a></li>"));
+	$(".sev-parent").parent().append($("#sev-template").html());
+	$(".lat-parent").parent().append($("#lat-template").html());
 
 	// Event for button clicks
 	$("ul a.toggle").click(function() {

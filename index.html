@@ -14,9 +14,9 @@
 	<!-- level template -->
 	<script id = "level-template" type="text/template">
 		<ul>
-			<li><a href="#" class="toggle lat">FA</a></li>
-			<li><a href="#" class="toggle sev">LFH</a></li>
-			<li><a href="#" class="toggle">Disk</a>
+			<li><a href="#" class="toggle sev-parent" data-title="facet arthrosis">FA</a></li>
+			<li><a href="#" class="toggle sev-parent" data-title="ligamentum flavum hypertrophy">LFH</a></li>
+			<li><a href="#" class="toggle" data-title="disk bulge">Disk</a>
 				<ul>
 					<li><a href="#" class="toggle">Bulge</a>
 						<ul><li><a href="#" class="toggle">Diffuse</a></li><li><a href="#" class="toggle">Asymmetric</a></li>
@@ -38,7 +38,24 @@
 				</ul>
 			</li>
 		</ul>
-	</script>	    
+	</script>
+
+	<!-- Severity template -->
+	<script id = "sev-template" type="text/template">
+		<ul class="drop-menu sev">
+			<li><a class="toggle lat-parent" href="#" data-title="mild">Mild</a></li>
+			<li><a class="toggle lat-parent" href="#" data-title="moderate">Mod</a></li>
+			<li><a class="toggle lat-parent" href="#" data-title="severe">Sev</a></li>
+		</ul>
+	</script>
+
+	<!-- Laterality template -->
+	<script id = "lat-template" type="text/template">
+		<ul class="drop-menu lat">
+			<li><a class="toggle" href="#" data-title="left">L</a></li>
+			<li><a class="toggle" href="#" data-title="right">R</a></li>
+		</ul>
+	</script>    
 </head>
 
 <!--/////////////////////////////////////////////////////////////////////////-->
