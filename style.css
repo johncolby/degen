@@ -1,7 +1,8 @@
 body 					     { font-family: 'Open Sans', sans-serif; }
 
 .level 						 { padding: .6em 0; }
-
+.level div					 { float: left; 
+							   padding: 0 0.4em; }
 .level ul	    		     { margin: 0; /*adjusting this will stagger up/down*/
 							   padding: 0;
 							   list-style-type: none;
@@ -16,4 +17,4 @@ body 					     { font-family: 'Open Sans', sans-serif; }
 
 .level ul ul   			     { display: none; }
 
-.clearFloat { clear: both; float: left; display: block; position: relative; } 
+.clearFloat 				 { clear: both; float: left; display: block; position: relative; } 

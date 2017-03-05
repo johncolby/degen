@@ -12,36 +12,45 @@
 	<script src="javascript.js"></script>
 
 	<!-- level template -->
-	<script id = "level-template" type="text/template">
-		<ul>
-			<li><a href="#" class="toggle sev-parent" data-title="facet arthrosis">FA</a></li>
-			<li><a href="#" class="toggle sev-parent" data-title="ligamentum flavum hypertrophy">LFH</a></li>
-			<li><a href="#" class="toggle" data-title="disk bulge">Disk</a>
-				<ul>
-					<li><a href="#" class="toggle">Bulge</a>
-						<ul><li><a href="#" class="toggle">Diffuse</a></li><li><a href="#" class="toggle">Asymmetric</a></li>
-						</ul>
-					</li>
-					<li><a href="#" class="toggle">Herniation</a>
-						<ul>
-							<li><a href="#" class="toggle">Protrusion</a>
-								<ul>
-									<li><a href="#" class="toggle">Central</a></li>
-									<li><a href="#" class="toggle">Subarticular</a></li>
-									<li><a href="#" class="toggle">Foraminal</a></li>
-									<li><a href="#" class="toggle">Extraforaminal</a></li>
-								</ul>
-							</li>
-							<li><a href="#" class="toggle">Extrusion</a></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-		</ul>
+	<script id="level-template" type="text/template">
+		<div id="findings">		
+			<ul>
+				<li><a href="#" class="toggle sev-parent" data-title="facet arthrosis">FA</a></li>
+				<li><a href="#" class="toggle sev-parent" data-title="ligamentum flavum hypertrophy">LFH</a></li>
+				<li><a href="#" class="toggle" data-title="disk bulge">Disk</a>
+					<ul>
+						<li><a href="#" class="toggle">Bulge</a>
+							<ul><li><a href="#" class="toggle">Diffuse</a></li><li><a href="#" class="toggle">Asymmetric</a></li>
+							</ul>
+						</li>
+						<li><a href="#" class="toggle">Herniation</a>
+							<ul>
+								<li><a href="#" class="toggle">Protrusion</a>
+									<ul>
+										<li><a href="#" class="toggle">Central</a></li>
+										<li><a href="#" class="toggle">Subarticular</a></li>
+										<li><a href="#" class="toggle">Foraminal</a></li>
+										<li><a href="#" class="toggle">Extraforaminal</a></li>
+									</ul>
+								</li>
+								<li><a href="#" class="toggle">Extrusion</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div id="results">		
+			<ul>
+				<li><a href="#" class="toggle sev-parent" data-title="canal">CN</a></li>
+				<li><a href="#" class="toggle sev-parent" data-title="lateral recess">LR</a></li>
+				<li><a href="#" class="toggle sev-parent" data-title="foraminal">NF</a></li>
+			</ul>
+		</div>
 	</script>
 
 	<!-- Severity template -->
-	<script id = "sev-template" type="text/template">
+	<script id="sev-template" type="text/template">
 		<ul class="drop-menu sev">
 			<li><a class="toggle lat-parent" href="#" data-title="mild">Mild</a></li>
 			<li><a class="toggle lat-parent" href="#" data-title="moderate">Mod</a></li>
@@ -50,7 +59,7 @@
 	</script>
 
 	<!-- Laterality template -->
-	<script id = "lat-template" type="text/template">
+	<script id="lat-template" type="text/template">
 		<ul class="drop-menu lat">
 			<li><a class="toggle" href="#" data-title="left">L</a></li>
 			<li><a class="toggle" href="#" data-title="right">R</a></li>

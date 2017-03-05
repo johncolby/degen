@@ -4,20 +4,54 @@ function genReport() {
 
 	// Loop over levels
 	$("#template-container").children().each(function(){
+		// Findings
 		var findings = []
 
 		report += $(this).attr("id") + ": ";
 
 		if(checkActive(getNode("FA", this))){
-			findings.push(sevWrap("FA", this))
+			findings.push(sevWrap(getNode("FA", this)))
 		}
 		if(checkActive(getNode("LFH", this))){
-			findings.push(sevWrap("LFH", this))
+			findings.push(sevWrap(getNode("LFH", this)))
 		}
 		if(checkActive(getNode("Disk", this))){
 			findings.push("disk buldge")
 		}
+
+		// Findings formatting
+		if(findings.length > 0) {
+			findings[0] = findings[0].charAt(0).toUpperCase() + findings[0].slice(1)
+		}
+		if(findings.length > 1) {
+			findings[findings.length-1] = "and " + findings[findings.length-1]
+		}
 		report += findings.join(", ")
+
+		// Results
+		if(findings.length > 0) {
+			var results = []
+			var resultNodes = $("#results", this).children().children().children("a")
+			resultNodes.each(function() {
+				if(checkActive($(this))) {
+					results.push(sevWrap($(this)) + " narrowing")
+				}
+			})
+
+			// Results formatting
+			if(results.length > 1) {
+				results[results.length-1] = "and " + results[results.length-1]
+			}
+			if(results.length > 0) {
+				report += ", resulting in "
+				report += results.join(", ")
+			} else {
+				report += ", without significant canal or foraminal narrowing"
+			}
+
+			report += "."
+		}
+
 		report += "\n\n"
 	});
 
@@ -32,13 +66,13 @@ function checkActive(node) {
 	return node.attr("class").search("active")>=0
 }
 
-function sevWrap(st, node) {
+function sevWrap(node) {
 	var left 
 	var right
 	var sevs = []
 
 	// Loop over severity levels
-	var sevNodes = getNode(st, node).siblings(".sev").children().children("a")
+	var sevNodes = node.siblings(".sev").children().children("a")
 	sevNodes.each(function() {
 		if(checkActive($(this))) {
 			// Extract laterality data
@@ -58,12 +92,12 @@ function sevWrap(st, node) {
 	// Wrap findings in severity and laterality info
 	var tmp = ''
 	for(var i = 0; i < sevs.length; i++) {
-		if(i>0) {tmp += " and "}
+		if(i > 0) { tmp += " and " }
 		tmp += sevs[i].severity + sevs[i].laterality
-		if(i==sevs.length-1) {tmp += " "}
+		if(i == sevs.length - 1) { tmp += " " }
 	}
 	
-	return tmp + getNode(st, node).attr("data-title")
+	return tmp + node.attr("data-title")
 }
 ////////////////////////////////////////////////////////////////////////////////
 
