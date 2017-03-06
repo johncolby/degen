@@ -131,22 +131,21 @@ $(document).ready(function(){
 
 	// Attach templates to DOM
 	for (var i = 0; i < levels.length; i++) {
-		$("#template-container").append($("<div>", {id: levels[i], class: "clearFloat level"}).html(template));
+		$("#template-container").append($("<div>", {id: levels[i], class: "clearFloat level"}).html(template))
 	}
 
 	// Attach submenus for severity and left/right
-	$(".sev-parent").parent().append($("#sev-template").html());
-	$(".lat-parent").parent().append($("#lat-template").html());
+	$(".sev-parent").parent().append($("#sev-template").html())
+	$(".lat-parent").parent().append($("#lat-template").html())
 
 	//Dropdown menu config
     $("ul.dropdown li").hover(function(){
-        $(this).addClass("hover");
-        $('ul:first',this).css('visibility', 'visible');
+        $(this).addClass("hover")
+        $('ul:first',this).css('visibility', 'visible')
     }, function(){
-        $(this).removeClass("hover");
-        $('ul:first',this).css('visibility', 'hidden');
+        $(this).removeClass("hover")
+        $('ul:first',this).css('visibility', 'hidden')
     });
-    //$("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
 
 	// Generate blank report
 	genReport()

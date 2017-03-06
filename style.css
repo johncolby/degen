@@ -12,7 +12,7 @@ ul									{ list-style: none; }
 /* From: https://css-tricks.com/examples/SimplejQueryDropdowns */
 /* LEVEL ONE */
 ul.dropdown                         { position: relative; }
-ul.dropdown li                      { font-weight: bold; float: left; zoom: 1; background: #ccc; z-index: +1}
+ul.dropdown li                      { font-weight: bold; float: left; background: #ccc; z-index: +1}
 ul.dropdown a:hover		            { color: #000; }
 ul.dropdown a:active                { color: #ffa500; }
 ul.dropdown a.active 			    { background-color: #ffa500; }
