@@ -24,6 +24,7 @@ function genReport() {
 				var hernType = hernNode.text()
 				hernNode = hernNode.siblings().children().children("a.active")
 				var lat = checkLat(hernNode)
+				if(diskStr.length > 1) { diskStr += " with superimposed " }
 				diskStr += hernNode.text().toLowerCase() + lat + " disk " + hernType.toLowerCase()
 			}
 			findings.push(diskStr)
