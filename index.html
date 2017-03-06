@@ -14,13 +14,11 @@
 	<!-- level template -->
 	<script id="level-template" type="text/template">
 		<div id="findings">		
-			<ul>
-				<li><a href="#" class="toggle sev-parent" data-title="facet arthrosis">FA</a></li>
-				<li><a href="#" class="toggle sev-parent" data-title="ligamentum flavum hypertrophy">LFH</a></li>
+			<ul class="dropdown">
 				<li><a href="#" class="toggle" data-title="disk bulge">Disk</a>
 					<ul>
 						<li><a href="#" class="toggle">Bulge</a>
-							<ul><li><a href="#" class="toggle">Diffuse</a></li><li><a href="#" class="toggle">Asymmetric</a></li>
+							<ul><li><a href="#" class="toggle">Diffuse</a></li><li><a href="#" class="toggle lat-parent">Asymmetric</a></li>
 							</ul>
 						</li>
 						<li><a href="#" class="toggle">Herniation</a>
@@ -28,20 +26,29 @@
 								<li><a href="#" class="toggle">Protrusion</a>
 									<ul>
 										<li><a href="#" class="toggle">Central</a></li>
-										<li><a href="#" class="toggle">Subarticular</a></li>
-										<li><a href="#" class="toggle">Foraminal</a></li>
-										<li><a href="#" class="toggle">Extraforaminal</a></li>
+										<li><a href="#" class="toggle lat-parent">Subarticular</a></li>
+										<li><a href="#" class="toggle lat-parent">Foraminal</a></li>
+										<li><a href="#" class="toggle lat-parent">Extraforaminal</a></li>
 									</ul>
 								</li>
-								<li><a href="#" class="toggle">Extrusion</a></li>
+								<li><a href="#" class="toggle">Extrusion</a>
+									<ul>
+										<li><a href="#" class="toggle">Central</a></li>
+										<li><a href="#" class="toggle lat-parent">Subarticular</a></li>
+										<li><a href="#" class="toggle lat-parent">Foraminal</a></li>
+										<li><a href="#" class="toggle lat-parent">Extraforaminal</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 					</ul>
 				</li>
+				<li><a href="#" class="toggle sev-parent" data-title="ligamentum flavum hypertrophy">LFH</a></li>
+				<li><a href="#" class="toggle sev-parent" data-title="facet arthrosis">FA</a></li>
 			</ul>
 		</div>
 		<div id="results">		
-			<ul>
+			<ul class="dropdown">
 				<li><a href="#" class="toggle sev-parent" data-title="canal">CN</a></li>
 				<li><a href="#" class="toggle sev-parent" data-title="lateral recess">LR</a></li>
 				<li><a href="#" class="toggle sev-parent" data-title="foraminal">NF</a></li>
@@ -72,16 +79,15 @@
 <body>
 <h1>Degenerator</h1>
 
-<div id="template-container"></div>
+<div id="template-container" class="clearFloat"></div>
 
-<div class=clearFloat>
-	<!-- Output textbox -->
-	<div><textarea id="output" rows="30" cols="100" readonly="true"></textarea></div>
+<!-- Output textbox -->
+<div><textarea id="output" rows="20" cols="100" readonly="true"></textarea></div>
 
-	<!-- Links -->
-	<div><a href="http://www.thespinejournalonline.com/article/S1529-9430(14)00409-4/fulltext">2014 NASS/ASSR/AJNR Lumbar disc nomenclature 2.0</a></div>
+<!-- Links -->
+<div><a href="http://www.thespinejournalonline.com/article/S1529-9430(14)00409-4/fulltext">2014 NASS/ASSR/AJNR Lumbar disc nomenclature 2.0</a></div>
 
-	<div><a href="http://www.radiologyassistant.nl/en/p586e67dab68a4/spine-lumbar-disc-nomenclature-20.html">Radiology Assistant</a></div>
-</div>
+<div><a href="http://www.radiologyassistant.nl/en/p586e67dab68a4/spine-lumbar-disc-nomenclature-20.html">Radiology Assistant</a></div>
+
 </body>
 </html>

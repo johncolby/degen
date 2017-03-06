@@ -9,14 +9,30 @@ function genReport() {
 
 		report += $(this).attr("id") + ": ";
 
-		if(checkActive(getNode("FA", this))){
-			findings.push(sevWrap(getNode("FA", this)))
+		var diskStr = ""
+		if(checkActive(getNode("Disk", this))){
+			if(checkActive(getNode("Bulge", this))){
+				var bulgeNodes = getNode("Bulge", this).siblings().children().children("a.active")
+				bulgeNodes.each(function() {
+					var lat = checkLat($(this))
+					diskStr += $(this).text() + lat + " "
+				})
+				diskStr += "disk bulge"
+			}
+			if(checkActive(getNode("Herniation", this))){
+				var hernNode = getNode("Herniation", this).siblings().children().children("a.active")
+				var hernType = hernNode.text()
+				hernNode = hernNode.siblings().children().children("a.active")
+				var lat = checkLat(hernNode)
+				diskStr += hernNode.text().toLowerCase() + lat + " disk " + hernType.toLowerCase()
+			}
+			findings.push(diskStr)
 		}
 		if(checkActive(getNode("LFH", this))){
 			findings.push(sevWrap(getNode("LFH", this)))
 		}
-		if(checkActive(getNode("Disk", this))){
-			findings.push("disk buldge")
+		if(checkActive(getNode("FA", this))){
+			findings.push(sevWrap(getNode("FA", this)))
 		}
 
 		// Findings formatting
@@ -50,6 +66,8 @@ function genReport() {
 			}
 
 			report += "."
+		} else {
+			report += "No significant canal or foraminal narrowing."
 		}
 
 		report += "\n\n"
@@ -75,16 +93,7 @@ function sevWrap(node) {
 	var sevNodes = node.siblings(".sev").children().children("a")
 	sevNodes.each(function() {
 		if(checkActive($(this))) {
-			// Extract laterality data
-			var lat
-			var lats = $(this).siblings(".lat").find("a.active")
-			if(lats.length == 0 || lats == undefined) {
-				lat = ""
-			} else if(lats.length > 1) {
-				lat = " bilateral"
-			} else {
-				lat = " " + lats.attr("data-title")
-			}
+			lat = checkLat($(this))
 			sevs.push({severity: $(this).attr("data-title"), laterality: lat})
 		}
 	})
@@ -98,6 +107,19 @@ function sevWrap(node) {
 	}
 	
 	return tmp + node.attr("data-title")
+}
+
+function checkLat(node) {
+	var lat
+	var lats = node.siblings(".lat").find("a.active")
+	if(lats.length == 0 || lats == undefined) {
+		lat = ""
+	} else if(lats.length > 1) {
+		lat = " bilateral"
+	} else {
+		lat = " " + lats.attr("data-title")
+	}
+	return lat
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -116,9 +138,21 @@ $(document).ready(function(){
 	$(".sev-parent").parent().append($("#sev-template").html());
 	$(".lat-parent").parent().append($("#lat-template").html());
 
+	//Dropdown menu config
+    $("ul.dropdown li").hover(function(){
+        $(this).addClass("hover");
+        $('ul:first',this).css('visibility', 'visible');
+    }, function(){
+        $(this).removeClass("hover");
+        $('ul:first',this).css('visibility', 'hidden');
+    });
+    //$("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+
+	// Generate blank report
+	genReport()
+
 	// Event for button clicks
 	$("ul a.toggle").click(function() {
-		$(this).siblings("ul").toggle();
 		$(this).toggleClass("active");
 		genReport()
 	});
