@@ -153,7 +153,10 @@ $(document).ready(function(){
 
 	// Event for button clicks
 	$("ul a.toggle").click(function() {
-		$(this).toggleClass("active");
+		$(this).toggleClass("active")
+		if(checkActive($(this))) {
+			$(this).parentsUntil(".dropdown").siblings("a").addClass("active")
+		}
 		genReport()
 	});
 });
