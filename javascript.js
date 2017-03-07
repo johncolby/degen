@@ -10,30 +10,51 @@ function genReport() {
         report += $(this).attr("id") + ": ";
 
         var diskStr = ""
-        if(checkActive(getNode("Disk", this))){
-            if(checkActive(getNode("Bulge", this))){
+        if(checkActive(getNode("Disk", this))) {
+            if(checkActive(getNode("Bulge", this))) {
                 var bulgeNodes = getNode("Bulge", this).siblings().children().children("a.active")
                 bulgeNodes.each(function() {
                     var lat = checkLat($(this))
+                    if(lat.length > 1) {lat = " " + lat}
                     diskStr += $(this).text() + lat + " "
                 })
                 diskStr += "disk bulge"
             }
-            if(checkActive(getNode("Herniation", this))){
+            if(checkActive(getNode("Herniation", this))) {
                 var hernNode = getNode("Herniation", this).siblings().children().children("a.active")
                 var hernType = hernNode.text()
                 hernNode = hernNode.siblings().children().children("a.active")
                 var lat = checkLat(hernNode)
+                if(lat.length > 1) {lat = " " + lat}
                 if(diskStr.length > 1) { diskStr += " with superimposed " }
                 diskStr += hernNode.text().toLowerCase() + lat + " disk " + hernType.toLowerCase()
+            }
+            if(checkActive(getNode("Fissure", this))) {
+                if(diskStr.length > 1) { diskStr += " and " }
+                diskStr += getNode("Fissure", this).attr("data-title")
             }
             findings.push(diskStr)
         }
         if(checkActive(getNode("LFH", this))){
             findings.push(sevWrap(getNode("LFH", this)))
         }
-        if(checkActive(getNode("FA", this))){
-            findings.push(sevWrap(getNode("FA", this)))
+        var facetStr = ""
+        if(checkActive(getNode("Facet", this))){
+            if(checkActive(getNode("Arthrosis", this))){
+                facetStr += sevWrap(getNode("Arthrosis", this))
+            }
+            if(checkActive(getNode("Synovitis", this))){
+                var lat = ""
+                var synStr = ""
+                lat = checkLat(getNode("Synovitis", this))
+                if(lat.length > 1) { lat = lat + " "}
+
+                if(facetStr.length > 1) { facetStr += " with " }
+                synStr += lat
+                if(facetStr.length == 0) { synStr += "facet " }
+                facetStr += synStr + "synovitis"
+            }
+            findings.push(facetStr)
         }
 
         // Findings formatting
@@ -95,6 +116,7 @@ function sevWrap(node) {
     sevNodes.each(function() {
         if(checkActive($(this))) {
             lat = checkLat($(this))
+            if(lat.length > 1) { lat = " " + lat}
             sevs.push({severity: $(this).attr("data-title"), laterality: lat})
         }
     })
@@ -118,9 +140,9 @@ function checkLat(node) {
     if(lats.length == 0 || lats == undefined) {
         lat = ""
     } else if(lats.length > 1) {
-        lat = " bilateral"
+        lat = "bilateral"
     } else {
-        lat = " " + lats.attr("data-title")
+        lat = lats.attr("data-title")
     }
     return lat
 }
@@ -150,7 +172,10 @@ $(document).ready(function(){
     $(".sev-parent").parent().append($("#sev-template").html())
     $(".lat-parent").parent().append($("#lat-template").html())
 
-    //Dropdown menu config
+    // Generate blank report
+    genReport()
+
+    //Events for dropdown menu
     $("ul.dropdown li").hover(function(){
         $(this).addClass("hover")
         $('ul:first',this).css('visibility', 'visible')
@@ -158,9 +183,6 @@ $(document).ready(function(){
         $(this).removeClass("hover")
         $('ul:first',this).css('visibility', 'hidden')
     });
-
-    // Generate blank report
-    genReport()
 
     // Event for button clicks
     $("ul a.toggle").click(function() {
