@@ -99,6 +99,8 @@ function sevWrap(node) {
         }
     })
 
+    sevs.sort(sortLat)
+
     // Wrap findings in severity and laterality info
     var tmp = ''
     for(var i = 0; i < sevs.length; i++) {
@@ -122,6 +124,15 @@ function checkLat(node) {
     }
     return lat
 }
+
+function sortLat(a,b) {
+  if (a.laterality < b.laterality)
+    return -1;
+  if (a.laterality > b.laterality)
+    return 1;
+  return 0;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
