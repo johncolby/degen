@@ -25,9 +25,9 @@ function genReport() {
                 var hernType = hernNode.text()
                 hernNode = hernNode.siblings().children().children("a.active")
                 var lat = checkLat(hernNode)
-                if(lat.length > 1) {lat = " " + lat}
+                if(lat.length > 0) {lat = lat + " "}
                 if(diskStr.length > 1) { diskStr += " with superimposed " }
-                diskStr += hernNode.text().toLowerCase() + lat + " disk " + hernType.toLowerCase()
+                diskStr += lat + hernNode.text().toLowerCase() + " disk " + hernType.toLowerCase()
             }
             if(checkActive(getNode("Fissure", this))) {
                 if(diskStr.length > 1) { diskStr += " and " }
