@@ -70,9 +70,18 @@ function genReport() {
         if(findings.length > 0) {
             var results = []
             var resultNodes = $("#results", this).children().children().children("a")
-            resultNodes.each(function() {
+            
+            // Canal, lateral recess, foraminal narrowing
+            resultNodes.slice(0, 3).each(function() {
                 if(checkActive($(this))) {
                     results.push(sevWrap($(this)) + " narrowing")
+                }
+            })
+
+            // Extras
+            resultNodes.slice(3).siblings().children().children("a").each(function() {
+                if(checkActive($(this))) {
+                    results.push(sevWrap($(this)))
                 }
             })
 
