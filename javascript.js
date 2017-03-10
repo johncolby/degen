@@ -110,25 +110,30 @@ function sevWrap(node) {
     var left 
     var right
     var sevs = []
+    var tmp = ''
 
     // Loop over severity levels
     var sevNodes = node.siblings(".sev").children().children("a")
-    sevNodes.each(function() {
-        if(checkActive($(this))) {
-            lat = checkLat($(this))
-            if(lat.length > 1) { lat = " " + lat}
-            sevs.push({severity: $(this).attr("data-title"), laterality: lat})
+    if(sevNodes.length > 0) {
+        sevNodes.each(function() {
+            if(checkActive($(this))) {
+                lat = checkLat($(this))
+                if(lat.length > 1) { lat = " " + lat}
+                sevs.push({severity: $(this).attr("data-title"), laterality: lat})
+            }
+        })
+
+        sevs.sort(sortLat)
+
+        // Wrap findings in severity and laterality info
+        for(var i = 0; i < sevs.length; i++) {
+            if(i > 0) { tmp += " and " }
+            tmp += sevs[i].severity + sevs[i].laterality
+            if(i == sevs.length - 1) { tmp += " " }
         }
-    })
-
-    sevs.sort(sortLat)
-
-    // Wrap findings in severity and laterality info
-    var tmp = ''
-    for(var i = 0; i < sevs.length; i++) {
-        if(i > 0) { tmp += " and " }
-        tmp += sevs[i].severity + sevs[i].laterality
-        if(i == sevs.length - 1) { tmp += " " }
+    } else {
+        tmp += checkLat(node)
+        if(tmp.length > 0) { tmp = tmp + " "}
     }
     
     return tmp + node.attr("data-title")
