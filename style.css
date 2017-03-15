@@ -3,7 +3,7 @@
 body                                { padding: 1em; font-family: 'Open Sans', sans-serif; }
 a                                   { text-decoration: none; }
 ul                                  { list-style: none; }
-div                                 { padding: 0.2em 0; }
+div                                 { padding: 0 0 0.4em 0; }
 
 .level                              { padding: 0 0 1em 0; }
 .level div                          { float: left; 

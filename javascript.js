@@ -28,6 +28,7 @@ function genReport() {
 
         report += $(this).attr("id") + ": ";
 
+        // Disk
         var diskStr = ""
         if(checkActive(getNode("Disk", this))) {
             if(checkActive(getNode("Bulge", this))) {
@@ -59,12 +60,18 @@ function genReport() {
             }
             findings.push(diskStr)
         }
+
+        // Uncovertebrojoint
         if(checkActive(getNode("UVH", this))){
             findings.push(sevWrap(getNode("UVH", this)))
         }
+        
+        // Ligamentum flavum
         if(checkActive(getNode("LFH", this))){
             findings.push(sevWrap(getNode("LFH", this)))
         }
+
+        // Facet
         var facetStr = ""
         if(checkActive(getNode("Facet", this))){
             if(checkActive(getNode("Arthrosis", this))){
