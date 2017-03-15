@@ -1,3 +1,22 @@
+function genTemplate(levels) {
+    // Import basic template
+    var template = $("#level-template").html()
+
+    // Attach templates to DOM
+    var tmp = []
+    for (var i = 0; i < levels.length; i++) {
+        tmp.push($("<div>", {id: levels[i], class: "clearFloat level"}).html(template))
+    }
+    $("#template-container").html(tmp)
+
+    // Attach submenus for severity and left/right
+    $(".sev-parent").parent().append($("#sev-template").html())
+    $(".lat-parent").parent().append($("#lat-template").html())
+
+    // Generate blank report
+    genReport()
+}
+
 // Function to generate completed report
 function genReport() {
     var report = ""
@@ -169,26 +188,7 @@ function sortLat(a,b) {
   return 0;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-$(document).ready(function(){
-    var levels = ["L1-2", "L2-3", "L3-4", "L4-5", "L5-S1"]
-
-    // Import basic template
-    var template = $("#level-template").html()
-
-    // Attach templates to DOM
-    for (var i = 0; i < levels.length; i++) {
-        $("#template-container").append($("<div>", {id: levels[i], class: "clearFloat level"}).html(template))
-    }
-
-    // Attach submenus for severity and left/right
-    $(".sev-parent").parent().append($("#sev-template").html())
-    $(".lat-parent").parent().append($("#lat-template").html())
-
-    // Generate blank report
-    genReport()
-
+function attachEvents() {
     //Events for dropdown menu
     $("ul.dropdown li").hover(function(){
         $(this).addClass("hover")
@@ -206,4 +206,27 @@ $(document).ready(function(){
         }
         genReport()
     });
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+$(document).ready(function(){
+    // Event for choosing C or L spine
+    $(".report-type").click(function() {
+        if($(this).text() == "C-Spine") {
+            levels = ["C2-3", "C3-4", "C4-5", "C5-6", "C6-7", "C7-T1"]
+            genTemplate(levels)
+            $("a.toggle.cspine").show()
+            $("a.toggle.lspine").hide()
+        } else if($(this).text() == "L-Spine") {
+            levels = ["L1-2", "L2-3", "L3-4", "L4-5", "L5-S1"]
+            genTemplate(levels)
+            $("a.toggle.cspine").hide()
+            $("a.toggle.lspine").show()
+        }
+        genReport()
+        attachEvents()
+    })
+
+    $(".report-type:contains(L-Spine)").trigger('click')
 });
