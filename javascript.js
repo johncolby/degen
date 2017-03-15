@@ -39,6 +39,11 @@ function genReport() {
                 })
                 diskStr += "disk bulge"
             }
+            if(checkActive(getNode("DOC", this))) {
+                var lat = checkLat(getNode("DOC", this))
+                if(lat.length > 0) {lat = lat + "ward "}
+                    diskStr += lat + "disk osteophyte complex"
+            }
             if(checkActive(getNode("Herniation", this))) {
                 var hernNode = getNode("Herniation", this).siblings().children().children("a.active")
                 var hernType = hernNode.text()
@@ -53,6 +58,9 @@ function genReport() {
                 diskStr += getNode("Fissure", this).attr("data-title")
             }
             findings.push(diskStr)
+        }
+        if(checkActive(getNode("UVH", this))){
+            findings.push(sevWrap(getNode("UVH", this)))
         }
         if(checkActive(getNode("LFH", this))){
             findings.push(sevWrap(getNode("LFH", this)))
